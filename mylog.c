@@ -1,0 +1,40 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  mylog.c
+ *
+ *    Description:  实验syslog
+ *
+ *        Version:  1.0
+ *        Created:  05/22/2018 03:53:49 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+#include <stdlib.h>
+
+
+#include <syslog.h>
+
+int main(int argc, char **argv)
+{
+    openlog("syslog_test", LOG_PID, LOG_DAEMON);
+
+    syslog(LOG_EMERG, "system is unusable");
+    syslog(LOG_EMERG, "smg test!!");
+    syslog(LOG_ALERT, "action must be taken immediately");
+    syslog(LOG_CRIT, "critical conditions");
+    syslog(LOG_ERR, "error conditions");
+    syslog(LOG_WARNING, "warning conditions");
+    syslog(LOG_NOTICE, "normal, but significant, condition");
+    syslog(LOG_INFO, "informational message");
+    syslog(LOG_DEBUG, "debug-level message");
+
+    closelog();
+
+    return 0;
+}
