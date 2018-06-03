@@ -15,50 +15,58 @@
  *
  * =====================================================================================
  */
-
-#include <stdio.h>  
+#include <stdio.h>
+#include <stdlib.h>
+  
 #include <sys/queue.h>
   
-  
-#define REPEAT 500  
-#define NOBJECTS 1000000  
-  
-// 在程序中如果我们想使用queue.h中提供的东西来  
-// 简便地将自己的数据存储在队列中，就要定义如下的结构体:  
-// 结构体中前面几项是自己的数据，最后一项是 TAILQ_ENTRY(..)...  
-// 当然，如果最后一项根据自己选择的队列类型也可以是  
-// SLIST_ENTRY或LIST_ENTRY或SIMPLEQ_ENTRY或CIRCLEQ_ENTRY  
-struct object{  
-    char anything[7]; // 这里我们自己的数据很简单，是字符数组  
-    TAILQ_ENTRY(object) tailq_entry;  
+struct tail_ql_entry   
+{  
+    TAILQ_ENTRY(tail_ql_entry) next;  
+    int data;  
 };  
   
+TAILQ_HEAD(tail_list,tail_ql_entry);  
   
+struct tail_list list1;  
   
-struct object objects[NOBJECTS];   
+int main()  
+{  
   
-TAILQ_HEAD(,object) the_tailq;   // 定义TAILQ队列头(definations)  
+    TAILQ_INIT(&list1);  
+    printf("list1 is empty? %s.\n",TAILQ_EMPTY(&list1)? "YES":"NO");  
   
-static void test_tailq(){  
-    int t;  
-    puts("Testing TAILQ...");  
-    for (t = 0; t < REPEAT; t++) {  
-        int i;  
+    struct tail_ql_entry * elm1 = malloc(sizeof(struct tail_ql_entry));  
+    elm1->data = 0;  
+    TAILQ_INSERT_HEAD(&list1,elm1,next);  
   
-        for (i = 0; i < NOBJECTS; i++) {  
-            TAILQ_INSERT_TAIL(&the_tailq, objects+i, tailq_entry);  
-        }  
-        for (i = 0; i < NOBJECTS; i++) {  
-            TAILQ_REMOVE_HEAD(&the_tailq, tailq_entry);  
-        }  
+    struct tail_ql_entry * elm2 = malloc(sizeof(struct tail_ql_entry));  
+    elm2->data = 1;  
+    TAILQ_INSERT_AFTER(&list1,elm1,elm2,next);  
+  
+    struct tail_ql_entry *var = NULL;  
+    TAILQ_FOREACH(var,&list1,next)  
+    {  
+        printf("foreach:%d\n",var->data);  
     }  
-}  
   
+    TAILQ_FOREACH_REVERSE(var,&list1,tail_list,next)  
+    {  
+        printf("foreach_reverse:%d\n",var->data);  
+    }  
   
-int main(){  
+    printf("elm1 next=%d\n",TAILQ_NEXT(elm1,next)->data);  
   
-	TAILQ_INIT(&the_tailq);          // 初始化TAILQ队列头(functions)  
-    test_stailq();  
+    printf("elm2 pre=%d\n",TAILQ_PREV(elm2,tail_list,next)->data);  
   
+    printf("list1 is empty? %s.\n",TAILQ_EMPTY(&list1)? "YES":"NO");  
+  
+    TAILQ_REMOVE(&list1,elm1,next);  
+    free(elm1);  
+    TAILQ_REMOVE(&list1,elm2,next);  
+    free(elm2);  
+      
+    printf("list1 is empty? %s.\n",TAILQ_EMPTY(&list1)? "YES":"NO");  
+      
     return 0;  
-}  
+}
