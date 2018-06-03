@@ -1,3 +1,76 @@
 a.out
 c_package
 s_package
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+Makefile*
+
+queue/.deps/
+queue/aclocal.m4
+queue/autom4te.cache/
+queue/autoscan.log
+queue/compile
+queue/config.h
+queue/config.h.in
+queue/config.log
+queue/config.status
+queue/configure
+queue/configure.ac
+queue/depcomp
+queue/install-sh
+queue/missing
+queue/queuetest
+queue/queuetest.i
+queue/stamp-h1
+
+*.swp

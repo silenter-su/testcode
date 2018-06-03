@@ -1,0 +1,59 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  queuetest.c
+ *
+ *    Description:  测试内核链表.
+ *
+ *        Version:  1.0
+ *        Created:  06/03/2018 04:30:07 PM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  smg
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/queue.h> /* 我疑惑include的默认路径在哪,后来发现是/usr/include/下面. */
+
+/* 宏定义. */
+
+#define MAX 100
+
+/* 先定义自己的结构体. */
+typedef struct packet_ {
+	int	src;
+	int	dst;
+	char	sp;
+	char	dp;
+} packet;
+
+/* 再定链表的node.这样理解对不对? */
+typedef struct pkt_node_ {
+	packet pinfo;
+	TAILQ_ENTRY(pkt_node_) tailq_entry; /* 这里的理解,会把这个结构体构造成什么样子呢?程序跑起来可以看看. */
+} pkt_node;
+
+/* 定义全局变量尾队列头. */
+TAILQ_HEAD(,pkt_node) the_tailq;
+
+static void test_tailq() {
+	int i = 0;
+	puts("Testing TAILQ...\n\n");
+
+
+}
+
+void main()
+{
+	/* 尾队列初始化. */
+	TAILQ_INIT(&the_tailq);
+	test_tailq();
+	printf("\nhello world!\n");
+}
+
+
+
