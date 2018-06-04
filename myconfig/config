@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[branch "master"]
+[remote "origin"]
+	url = git@github.com:silenter-su/testcode.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "mirror"]
+	url = git@192.168.1.101:minggang.su/testcode.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	remote = mirror
+	merge = refs/heads/master
