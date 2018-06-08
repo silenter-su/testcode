@@ -1,3 +1,4 @@
+" 此文件为改为benshushu配置前备份.
 " All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
 " the call to :runtime you can find below.  If you wish to change any of those
 " settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
@@ -52,6 +53,8 @@ endif
 set tabstop=4 " 设置制表符(tab键)的宽度
 set softtabstop=4 " 设置软制表符的宽度
 set shiftwidth=4 " (自动) 缩进使用的4个空格
+set autowrite   " 自动保存
+
 
 "设置粘贴开关
 set pastetoggle=<F1>
@@ -69,7 +72,7 @@ augroup relative_numbser
  autocmd InsertLeave * :set relativenumber
 augroup END
 
-"配置leader键为","
+"配置leader键为","-----------------------
 let mapleader=","
 
 "按,ev打开配置文件
@@ -86,6 +89,48 @@ nmap <leader>e :tabe<Space>
 nmap <leader>r :e<Space>
 "按,p用python执行当前文件
 nmap <leader>p :!python %<CR>
+"-----------------------------------------
+"
+"
+"
+"
+"
+"
+"
+"
+"other seting file by benshushu.--------------------------
+
+
+et foldmethod=syntax
+set foldlevel=100  " 启动vim时不要自动折叠代码
+set textwidth=80
+set formatoptions+=t
+set cindent
+set smartindent
+set noerrorbells
+set showmatch
+set nobackup 
+set noswapfile
+" set cursorline
+
+" disable 
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+" remap control + arrow key to select windows
+noremap <C-Down>  <C-W>j
+noremap <C-Up>    <C-W>k
+noremap <C-Left>  <C-W>h
+noremap <C-Right> <C-W>l
+noremap <C-J> <C-W>j
+noremap <C-K> <C-W>k
+noremap <C-H> <C-W>h
+noremap <C-L> <C-W>l
+
+
+"---------------------------------------------------------
 
 
 set hlsearch		"搜索高亮
@@ -101,7 +146,7 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=/etc/vim/bundle/Vundle.vim
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -118,7 +163,7 @@ Plugin 'tpope/vim-fugitive'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
+"Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
