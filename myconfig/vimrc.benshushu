@@ -75,9 +75,9 @@ augroup END
 let mapleader=","
 
 "按,ev打开配置文件
-"nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
 "按,sv重载配置文件
-"nmap <silent> <leader>sv :so $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
 "按,m取消高亮搜索结果
 nmap <silent> <leader>m :nohlsearch<CR>
 "按,w保存文件
@@ -87,12 +87,12 @@ nmap <leader>e :tabe<Space>
 "按,r在当前tab打开文件
 nmap <leader>r :e<Space>
 "按,p用python执行当前文件
-"nmap <leader>p :!python %<CR>
+nmap <leader>p :!python %<CR>
 "-----------------------------------------
 
 "other seting file by benshushu.--------------------------
 
-"下面这些配置是做什么的?在哪儿能查到?
+
 set foldmethod=syntax
 set foldlevel=100  " 启动vim时不要自动折叠代码
 set textwidth=80
@@ -111,7 +111,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-" remap control + arrow key to select windows 可以用jkhl来选择窗口?
+" remap control + arrow key to select windows
 noremap <C-Down>  <C-W>j
 noremap <C-Up>    <C-W>k
 noremap <C-Left>  <C-W>h
@@ -155,21 +155,26 @@ Plugin 'c.vim' "不知道这个插件干嘛的.应该和C文件或语法有关�
 
 "benshushu-------------------------------------------------
 
-"自动补全.
-Plugin 'Valloric/YouCompleteMe'
-"文件树?
-Plugin 'scrooloose/nerdtree'
-"符号表.
-Plugin 'majutsushi/tagbar'
-"状态栏
-Plugin 'vim-airline/vim-airline'
-"静态语法检测.
-Plugin 'w0rp/ale'
-"minibuf
-Plugin 'fholgado/minibufexpl.vim'
-map <F10> :MBEbp<CR>
-map <F11> :MBEbn<CR>
 
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+" Plugin 'majutsushi/tagbar' " Tag bar"
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'vim-airline/vim-airline' | Plugin 'vim-airline/vim-airline-themes' " Status line"
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'mbbill/undotree'
+Plugin 'gdbmgr'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Yggdroot/indentLine' " Indentation level"
+Plugin 'bling/vim-bufferline' " Buffer line"
+"Plugin 'kepbod/quick-scope' " Quick scope
+Plugin 'yianwillis/vimcdoc'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'w0rp/ale'
+Plugin 'mbbill/echofunc'
+Plugin 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 
 "end benshushu plugin---------------------------------------------------------
@@ -220,16 +225,34 @@ let g:ycm_semantic_triggers =  {
 			\ }
 
 
+" ===========gutentags=============
+" 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project', '.gitignore']
 
+" 添加ctags额外参数，会让tags文件变大
+" let g:gutentags_ctags_extra_args = ['--fields=+niazlS', '--extra=+q']
+ let g:gutentags_ctags_extra_args = ['--fields=+lS']
+" let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+" let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-"Set NERDTree.
+if isdirectory("kernel/") && isdirectory("mm/")
+	let g:gutentags_file_list_command = 'find arch/arm/ mm/ kernel/ include/ init/ lib/'
+endif
+	
+
+" =======echodoc 显示函数参数===========
+" ctags -R --fields=+lS .
+
+"======= NetRedTree=========
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let NERDTreeWinSize=20
+"let NERDTreeShowLineNumbers=1
 let NERDTreeAutoCenter=1
 let NERDTreeShowBookmarks=1
-nmap <F3> :NERDTreeToggle<CR>
-"进入时打开NERDTree
-"autocmd vimenter * NERDTree
 
+let g:winManagerWindowLayout='TagList'
+nmap wm :WMToggle<cr>
 
 " ======ALE静态语法检测========
 let g:ale_sign_column_always = 1
@@ -245,6 +268,12 @@ let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
 let g:ale_c_cppcheck_options = ''
 let g:ale_cpp_cppcheck_options = ''
 
+" ========airline状态栏=========  
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_b = '%-0.10{getcwd()}'
+let g:airline_section_c = '%t'
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline_section_y = ''
 
 "--------------------------------------------------------------------------------
 " cscope:建立数据库：cscope -Rbq；  F5 查找c符号； F6 查找字符串；   F7 查找函数定义； F8 查找函数谁调用了，
@@ -299,13 +328,7 @@ if filereadable("GTAGS")
 endif
 
 
-" Tagbar
-let g:tagbar_width=25
-"F2打开tagbar.
-nmap <F2> :TagbarToggle<CR>
-autocmd vimenter * TagbarToggle
 
 "benshushu 插件配置end----------------------------------------------
-
 
 "end add
