@@ -55,6 +55,7 @@ int main(void){
        */
 
         LIST_INSERT_HEAD(&head,n1,elements);
+		
     }while(i);
     for(np=(head).lh_first;np!=NULL;np=np->elements.le_next){
         printf("%d ",np->num);

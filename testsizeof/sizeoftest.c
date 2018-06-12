@@ -119,6 +119,11 @@ void main ()
 {
 	
 	printf("DnpfuncMap size is %ld.\n",sizeof(dnp3_func_map)/sizeof(Dnp3FuncMap));
+	Dnp3FuncMap a;
+	a.func = 3;
+	a.name = "xxx";
+	a.name = "bbb";
+
 
 
 	for(int i = 0; i < sizeof(dnp3_func_map)/sizeof(Dnp3FuncMap); i ++)

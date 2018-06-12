@@ -81,5 +81,13 @@ int main()
 
     printf("list1 is empty? %s.\n",TAILQ_EMPTY(&list1)? "YES":"NO");
 
+
+
+#ifdef DEBUG
+	printf("Debug...\n");
+#else
+	printf("No Debug...\n");
+#endif
+
     return 0;
 }
