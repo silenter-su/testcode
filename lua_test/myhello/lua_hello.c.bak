@@ -1,0 +1,70 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename:  lua_hello.c
+ *
+ *    Description:  用C调用lua脚本的小例子.
+ *
+ *        Version:  1.0
+ *        Created:  08/08/2018 10:33:54 AM
+ *       Revision:  none
+ *       Compiler:  gcc
+ *
+ *         Author:  YOUR NAME (), 
+ *   Organization:  
+ *
+ * =====================================================================================
+ */
+#include <stdlib.h>
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+
+
+
+void main ()
+{
+	/* 创建状态机. */
+	lua_State *L = luaL_newstate();
+	if(NULL == L)
+	{
+		printf("lua状态机内存分配失败!\n");
+		return;
+	}
+
+	/* 加载lua脚本文件. */
+	int ret = 0;
+	ret = luaL_loadfile(L,"./sayhello.lua");
+	if(ret)
+	{
+		printf("载入lua脚本文件失败!\n");
+		goto ERROR;
+	}
+
+
+	/* 指定状态机运行的函数. */
+  	ret = lua_getglobal(L,"printmsg");
+	if(ret)
+	{
+		printf("指定状态机运行lua脚本中的函数失败!\n");
+		return;
+	} 
+
+	/* 运行状态机中加载的lua文件. */
+	ret = lua_pcall(L,0,0,0);
+	if(ret)
+	{
+		printf("lua脚本运行失败!\n");
+		printf("返回值:%d\n",ret);
+		goto ERROR;
+	}
+	
+	/* 关闭状态机,释放资源. */
+	lua_close(L);
+	return;
+
+ERROR:
+	lua_close(L);
+	return;
+}
+
