@@ -75,3 +75,7 @@ queue/stamp-h1
 
 *.swp
 tags
+lua_test/add
+lua_test/lua_conf
+lua_test/read_lua_conf
+lua_test/table_operation
