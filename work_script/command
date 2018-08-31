@@ -1,3 +1,27 @@
-scp -r root@192.168.1.30:/root/work/audit-integration/dpi-engine/build /root/work/audit-integration/dpi-engine
+/root/work/dpi-engine/dpi/src/.libs/lt-suricata -c /usr/local/etc/suricata/suricata.yaml -i ens33
 
-scp -r root@192.168.1.30:/root/work/audit-integration/dpi-engine/src-ext /root/work/audit-integration/dpi-engine/
+/root/work/dpi-engine/dpi/src/.libs/lt-suricata -c /usr/local/etc/suricata/suricata.yaml 
+
+
+ /root/work/dpi-engine/dpi/src/.libs/lt-suricata -c /usr/local/etc/suricata/suricata.yaml -r /root/Desktop/iec104.pcap
+
+
+gdb --args /root/work/dpi-engine/dpi/src/.libs/lt-suricata -c /usr/local/etc/suricata/suricata.yaml -r /root/Desktop/iec104.pcap 
+
+/usr/share/wireshark/bin/wireshark
+
+
+gdb --args ./suricata -c /usr/local/etc/suricata/suricata.yaml -r /root/Desktop/dnp3/dnp3_objs.pcap
+gdb --args ./suricata -c /usr/local/etc/suricata/suricata.yaml -r /root/Desktop/dnp3/dnp3_fragment.pcap 
+tcpreplay -i ens38 -p 200 ~/Desktop/dnp3/dnp3.pcap 
+tcpdump -i ens33
+设备启动 suricata -c /data/suricata/config/suricata.yaml --af-packet 
+gdb --args /usr/local/bin/suricata -c /data/suricata/config/suricata.yaml  -r ./dnp3.pcap
+ctags -R --exclude=build
+root@CyOS:/usr/local/audit-web# python manage.py runserver
+uwsgi /usr/local/audit-web/WSGI/uwsgi.ini
+vi /data/flask_web/config/setting.yaml
+/usr/local/audit-web/utils/zmq_recv.py
+python /usr/local/process_monitor/process_monitor.py
+python /usr/local/process_monitor/process_monitor.py
+(gdb) directory ~/src/coreutils-7.4/src/ ##需要指向源文件所在的文件夹，ls.c所在的路径.
