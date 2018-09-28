@@ -27,6 +27,7 @@ void main()
 	char str[] = "eeeeeeeeeeeeeeeecbbbbbbbbbbbbbbbbduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuucdaaaaaaaaaaaaaaaaaaaabcdefg";
 	char *p = str;
 	char *key_point = NULL;
+	char* piii;
 	while(p)
 	{
 		while ( key_point = strsep(&p,"cd"))//关键字为c或d，它们连续出现了
